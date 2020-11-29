@@ -1,6 +1,7 @@
 const express = require('express')
+
 const router = express.Router()
-const tourController = require('./../controllers/tourContoller')
+const tourController = require("../controllers/tourContoller")
 
 // router.param('id', tourController.checkID)
 
