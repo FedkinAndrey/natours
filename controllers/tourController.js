@@ -61,9 +61,8 @@ exports.updateTour = catchAsync(async (req, res, next) => {
     })
 
     if (!tour) {
-        return next(new AppError('No tour fount with that ID', 404))
+        return next(new AppError('No tour found with that ID', 404))
     }
-
 
     res.status(200).json({
         status: 'success',
