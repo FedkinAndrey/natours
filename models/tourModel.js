@@ -87,21 +87,22 @@ tourSchema.virtual('durationWeeks').get(function () {
     return this.duration / 7
 })
 
-//DOCUMENT MIDDLEWARE: runs before .save()and .create()
+//DOCUMENT MIDDLEWARE: runs before .save() and .create()
 tourSchema.pre('save', function (next) {
     this.slug = slugify(this.name, {lower: true})
     next()
 })
 
 // tourSchema.pre('save', function (next) {
-//     console.log('Weill savedocument...')
+//     console.log('Weill save document...')
 //     next()
 // })
 
-// tourSchema.post('save', function (doc, next) {
-//     console.log(doc)
-//     next()
-// })
+/*Has access to the saved document
+tourSchema.post('save', function (doc, next) {
+    console.log(doc)
+    next()
+})*/
 
 
 //QUERY MIDDLEWARE
