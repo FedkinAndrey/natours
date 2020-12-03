@@ -1,4 +1,3 @@
-const {promisify} = require('util')
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 const catchAsync = require("../utils/catchAsync")
@@ -17,6 +16,7 @@ exports.signup = catchAsync(async (req, res, next) => {
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
         passwordChangedAt: req.body.passwordChangedAt,
+        role: req.body.role
     })
 
     const token = signToken(newUser._id)
@@ -74,7 +74,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     // 4) Check if user changed password after the JWT was issued
-    if (currentUser.changedPasswordAfter(decoded.iat)){
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
         return next(new AppError('User recently changed password! Please log in again.', 401))
     }
 
@@ -82,3 +82,15 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = currentUser
     next()
 })
+
+exports.restrictTo = (...roles) => {
+    return (req, res, next) => {
+    //    roles ['admin', 'lead-guide'].     role='user'
+        if(!roles.includes(req.user.role)){
+            return next(new AppError('You do not have permission to perform this action!', 403))
+        }
+
+        next()
+    }
+}
+

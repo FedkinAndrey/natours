@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema({
         validate: [validator.isEmail, 'Please provide a valid email']
     },
     photo: String,
+    role: {
+        type: String,
+        enum: ['user', 'guide', 'lead-guide', 'admin'],
+        default: 'user'
+    },
     password: {
         type: String,
         required: [true, 'Provide a password'],
@@ -53,7 +58,7 @@ userSchema.methods.correctPassword = async function (candidatePassword, userPass
 }
 
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
-    if(this.passwordChangedAt){
+    if (this.passwordChangedAt) {
         const changedTimestamp = parseInt(this.passwordChangedAt.getTime() / 1000, 10)
 
         return JWTTimestamp < changedTimestamp
