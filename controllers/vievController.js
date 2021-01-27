@@ -49,7 +49,7 @@ exports.getLoginForm = (req, res) => {
         //     "connect-src 'self' https://cdnjs.cloudflare.com"
         // )
         .render('login', {
-            title: 'Log into our account'
+            title: 'Log into your account'
         })
 }
 
