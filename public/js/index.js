@@ -63,4 +63,4 @@ if (bookBtn) bookBtn.addEventListener('click', e => {
 })
 
 const alertMessage = document.querySelector('body').dataset.alert
-if (alert) showAlert('success', alertMessage, 20)
+if (alertMessage) showAlert('success', alertMessage, 20)
